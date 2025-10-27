@@ -1,3 +1,4 @@
+def imageName = 'euroeducation/movies-parser'
 pipeline {
     agent any
     stages {
@@ -5,6 +6,18 @@ pipeline {
             steps {
                 checkout scm
             }
+        }
+
+        stage('Quality Tests'){
+            steps {
+                script {
+                    def imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
+                    imageTest.inside{
+                        sh 'golint'
+                    }
+                }
+            }
+            
         }
     }
 }
