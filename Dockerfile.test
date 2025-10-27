@@ -2,6 +2,6 @@ FROM golang:1.23
 WORKDIR /go/src/github.com/mlabouardy/movies-loader
 ENV GOCACHE /tmp
 WORKDIR /go/src/github/mlabouardy/movies-parser
-RUN go install golang.org/x/lint/golint
+RUN go install golang.org/x/lint/golint@latest
 COPY . .
 RUN go get -v
