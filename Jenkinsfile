@@ -8,16 +8,27 @@ pipeline {
             }
         }
 
+        def imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
+
         stage('Quality Tests'){
             steps {
                 script {
-                    def imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
                     imageTest.inside{
                         sh 'golint'
                     }
                 }
             }
-            
         }
+
+        stage('Unit Tests'){
+            steps {
+                script{
+                    imageTest.inside{
+                        sh 'go test'
+                    }
+                }
+            }
+        }
+        
     }
 }
