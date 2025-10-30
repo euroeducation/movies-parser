@@ -1,6 +1,6 @@
-FROM golang:1.15
+FROM golang:1.23
 WORKDIR /go/src/github.com/euroeducation/movies-loader
 ENV GOCACHE=/tmp
-RUN go get -u golang.org/x/lint/golint
+RUN go install golang.org/x/lint/golint@latest
 COPY . .
 RUN go get -v
