@@ -1,4 +1,5 @@
 def imageName = 'euroeducation/movies-parser'
+def imageTest= ''
 pipeline {
     agent any
     stages {
@@ -8,11 +9,12 @@ pipeline {
             }
         }
 
-        def imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
+        
 
         stage('Quality Tests'){
             steps {
                 script {
+                    imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
                     imageTest.inside{
                         sh 'golint'
                     }
