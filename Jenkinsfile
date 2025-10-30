@@ -17,6 +17,7 @@ pipeline {
                     imageTest= docker.build("${imageName}-test", "-f Dockerfile.test .")
                     imageTest.inside{
                         sh 'golint'
+                        sh 'go test'
                     }
                 }
             }
