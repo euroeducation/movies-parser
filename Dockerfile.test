@@ -1,6 +1,7 @@
 FROM golang:1.23
 WORKDIR /go/src/github.com/euroeducation/movies-loader
-
+ENV GOCACHE=/tmp
 RUN go install golang.org/x/lint/golint@latest
 COPY . .
 RUN go get -v
+RUN chmod -R 777 /tmp
